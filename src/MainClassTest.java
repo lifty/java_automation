@@ -26,11 +26,16 @@ public class MainClassTest extends MainClass {
 
     @Test public void testGetClassString() {
         String test_cs = getClassString();
-        String str_part = "hello";
-        boolean str_check = test_cs.toLowerCase().contains(str_part.toLowerCase());
-        if (str_check == true) {
-            System.out.println("testGetClassString passed - string includes " + str_part);
+        String str_part_h = "Hello";
+        String str_part_l = "hello";
+        boolean str_check = true;
+        boolean str_check_one = test_cs.contains(str_part_h);
+        boolean str_check_two = test_cs.contains(str_part_l);
+        if (str_check_one == true || str_check_two == true) {
+            System.out.println("testGetClassString passed - string includes Hello in appropriate register");
+        } else {
+            str_check = false;
         }
-        assert str_check: "An error occured: the string '" + test_cs + "' does not include '" + str_part + "'";
+        assert str_check: "An error occured: the string '" + test_cs + "' does not include 'Hello' in appropriate register or at all";
     }
 }
