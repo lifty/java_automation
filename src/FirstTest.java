@@ -7,9 +7,9 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.URL;
 
-    public class FirstTest {
+public class FirstTest {
 
-        private AppiumDriver driver;
+    private AppiumDriver driver;
 
     @Before
     public void setUp() throws Exception {
