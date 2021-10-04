@@ -14,6 +14,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.net.URL;
 import java.util.List;
+import java.util.Objects;
 
 public class FirstTest {
 
@@ -252,6 +253,28 @@ public class FirstTest {
         );
     }
 
+    @Test
+    public void testScreenRotation() throws InterruptedException
+    {
+        waitForElementAndClick(
+                By.xpath("//*[contains(@text,'Skip')]"),
+                "Cannot find Skip element",
+                5);
+        waitForElementAndClick(
+                By.id("org.wikipedia:id/search_container"),
+                "Cannot find 'Search Wikipedia' input",
+                5);
+        rotateScreenLS();
+        assertElementPresentAndRerotate(
+                By.id("org.wikipedia:id/search_container"),
+                "Cannot find 'Search Wikipedia' input after landscape rerotation");
+        rotateScreenPT();
+        assertElementPresent(
+                By.id("org.wikipedia:id/search_container"),
+                "Cannot find 'Search Wikipedia' input after portrait rerotation");
+
+    }
+
     private WebElement waitForElementAndClick(By by, String error_message, long timeoutInSeconds) throws InterruptedException
     {
         WebElement element = waitForElementPresent(by, error_message, timeoutInSeconds);
@@ -350,6 +373,20 @@ public class FirstTest {
             throw new AssertionError(default_message + "\n" + error_message);
         }
     }
+
+    private void assertElementPresentAndRerotate(By by, String error_message)
+    {
+        int amount_of_elements = getAmountOfElements(by);
+        if (amount_of_elements == 0) {
+            String current_rotation = driver.getOrientation().toString();
+            if (!Objects.equals(current_rotation, "PORTRAIT")) {
+                rotateScreenPT();
+            }
+            String default_message = "An element '" + by.toString() + "' supposed to be presented";
+            throw new AssertionError(default_message + "\n" + error_message);
+        }
+
+    }
 //
 //    private void assertElementNotPresent(By by, String error_message)
 //    {
@@ -359,17 +396,17 @@ public class FirstTest {
 //            throw new AssertionError(default_message + " " + error_message);
 //        }
 //    }
-//
-//    private void rotateScreenLS()
-//    {
-//        driver.rotate(ScreenOrientation.LANDSCAPE);
-//        return;
-//    }
-//
-//    private void rotateScreenPT()
-//    {
-//        driver.rotate(ScreenOrientation.PORTRAIT);
-//        //driver.runAppInBackground(5);
-//        return;
-//    }
+
+    private void rotateScreenLS()
+    {
+        driver.rotate(ScreenOrientation.LANDSCAPE);
+        return;
+    }
+
+    private void rotateScreenPT()
+    {
+        driver.rotate(ScreenOrientation.PORTRAIT);
+        //driver.runAppInBackground(5);
+        return;
+    }
 }
