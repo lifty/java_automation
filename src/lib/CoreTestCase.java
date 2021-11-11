@@ -12,7 +12,7 @@ import java.time.Duration;
 public class CoreTestCase extends TestCase {
 
     protected AppiumDriver driver;
-    private static String AppiumURL = "http://127.0.0.1:4723/wd/hub/";
+    private static String AppiumURL = "http://0.0.0.0:4723/wd/hub/";
 
     @Override
     protected void setUp() throws Exception
@@ -24,7 +24,7 @@ public class CoreTestCase extends TestCase {
         capabilities.setCapability("platformName","Android");
         capabilities.setCapability("deviceName","AndroidTestDevice");
         capabilities.setCapability("orientation","PORTRAIT");
-        capabilities.setCapability("platformVersion","6.0");
+        capabilities.setCapability("platformVersion","10.0");
         capabilities.setCapability("automationName","Appium");
         capabilities.setCapability("appPackage","org.wikipedia");
         capabilities.setCapability("appActivity",".main.MainActivity");
