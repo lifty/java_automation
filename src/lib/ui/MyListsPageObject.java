@@ -6,8 +6,8 @@ import org.openqa.selenium.By;
 public class MyListsPageObject extends MainPageObject {
 
     public static final String
-            FOLDER_BY_DESC_TPL = "//*[@resource-id='org.wikipedia:id/item_reading_list_statistical_description' and contains(@text,'{FOLDER_DESC}')]",
-            ARTICLE_BY_DESC_TPL = "//*[@resource-id='org.wikipedia:id/page_list_item_description' and @text='{ARTICLE_DESC}']";
+            FOLDER_BY_DESC_TPL = "xpath://*[@resource-id='org.wikipedia:id/item_reading_list_statistical_description' and contains(@text,'{FOLDER_DESC}')]",
+            ARTICLE_BY_DESC_TPL = "xpath://*[@resource-id='org.wikipedia:id/page_list_item_description' and @text='{ARTICLE_DESC}']";
 
     public MyListsPageObject (AppiumDriver driver) {
         super(driver);
@@ -25,7 +25,7 @@ public class MyListsPageObject extends MainPageObject {
     public void openFolderByDesc(String folder_desc) throws InterruptedException {
         String folder_desc_xpath = getFolderXpathByDecs(folder_desc);
         this.waitForElementAndClick(
-                By.xpath(folder_desc_xpath),
+                folder_desc_xpath,
                 "Cannot find folder by description " + folder_desc,
                 5);
     }
@@ -33,7 +33,7 @@ public class MyListsPageObject extends MainPageObject {
     public void waitForArticlePresentByDesc (String article_desc) {
         String article_desc_xpath = getArticleXpathByDecs(article_desc);
         this.waitForElementPresent(
-                By.xpath(article_desc_xpath),
+                article_desc_xpath,
                 "Cannot find an article by description " + article_desc,
                 5);
     }
@@ -41,7 +41,7 @@ public class MyListsPageObject extends MainPageObject {
     public void waitForArticleNotPresentByDesc (String article_desc) {
         String article_desc_xpath = getArticleXpathByDecs(article_desc);
         this.waitForElementNotPresent(
-                By.xpath(article_desc_xpath),
+                article_desc_xpath,
                 "Should be found 0 article by description " + article_desc,
                 5);
     }
@@ -50,7 +50,7 @@ public class MyListsPageObject extends MainPageObject {
         String article_desc_xpath = getArticleXpathByDecs(article_desc);
         this.waitForArticlePresentByDesc(article_desc);
         this.swipeElementToLeft(
-                By.xpath(article_desc_xpath),
+                article_desc_xpath,
                 "Cannot find and delete saved article by description " + article_desc);
         this.waitForArticleNotPresentByDesc(article_desc);
     }
@@ -58,7 +58,7 @@ public class MyListsPageObject extends MainPageObject {
     public void clickArticlePresentByDesc(String article_desc) throws InterruptedException {
         String article_desc_xpath = getArticleXpathByDecs(article_desc);
         this.waitForElementAndClick(
-                By.xpath(article_desc_xpath),
+                article_desc_xpath,
                 "Cannot find an article by description " + article_desc,
                 5);
     }
